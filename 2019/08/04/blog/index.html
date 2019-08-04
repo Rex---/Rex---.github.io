@@ -55,14 +55,19 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Rex Tech Blog">
-<meta property="og:url" content="https://github.com/RexG/archives/2019/index.html">
+  <meta name="description" content="最近换了份工作, 所以想把拖延了很久的blog重拾起来, 除了CSDN还想维护一份github.io, 所以先设置下本地的hexo环境. 但是都9102年了, 应该使用Docker setup 比较好.  使用我已经制作好的docker image  1docker pull rexg/blog  启动容器  12#设置你本地的外挂folderdocker run -it xx -p 4000:4">
+<meta name="keywords" content="Docker,Hexo,Github">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Docker创建Hexo博客并部署到github.io">
+<meta property="og:url" content="https://github.com/RexG/2019/08/04/blog/index.html">
 <meta property="og:site_name" content="Rex Tech Blog">
+<meta property="og:description" content="最近换了份工作, 所以想把拖延了很久的blog重拾起来, 除了CSDN还想维护一份github.io, 所以先设置下本地的hexo环境. 但是都9102年了, 应该使用Docker setup 比较好.  使用我已经制作好的docker image  1docker pull rexg/blog  启动容器  12#设置你本地的外挂folderdocker run -it xx -p 4000:4">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-08-04T06:52:10.254Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Rex Tech Blog">
-  <link rel="canonical" href="https://github.com/RexG/archives/2019/">
+<meta name="twitter:title" content="使用Docker创建Hexo博客并部署到github.io">
+<meta name="twitter:description" content="最近换了份工作, 所以想把拖延了很久的blog重拾起来, 除了CSDN还想维护一份github.io, 所以先设置下本地的hexo环境. 但是都9102年了, 应该使用Docker setup 比较好.  使用我已经制作好的docker image  1docker pull rexg/blog  启动容器  12#设置你本地的外挂folderdocker run -it xx -p 4000:4">
+  <link rel="canonical" href="https://github.com/RexG/2019/08/04/blog/">
 
 
 <script id="page-configurations">
@@ -70,13 +75,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
-    isArchive: true
+    isArchive: false
   };
 </script>
 
-  <title>Archive | Rex Tech Blog</title>
+  <title>使用Docker创建Hexo博客并部署到github.io | Rex Tech Blog</title>
   
 
 
@@ -215,96 +220,142 @@
         <div class="content-wrap">
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-          <div id="content" class="content page-archive">
+          <div id="content" class="content page-post-detail">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        Um..! 1 post. Keep on posting.
-      </span>
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h2 class="archive-year" id="archive-year-2019">2019</h2>
-          </div>
-        
-        
-
-        
+  <div id="posts" class="posts-expand">
+    
+    <div class="reading-progress-bar"></div>
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/RexG/2019/08/04/blog/">
 
-      <h3 class="post-title">
-          <a class="post-title-link" href="/2019/08/04/blog/" itemprop="url">
-            
-              <span itemprop="name">使用Docker创建Hexo博客并部署到github.io</span>
-            
-          </a>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rex">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/6408076?s=400&u=e19f07fc81114baf9c38894def833a779a61982a&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rex Tech Blog">
+    </span>
+      <header class="post-header">
+
         
-      </h3>
+          <h2 class="post-title" itemprop="name headline">使用Docker创建Hexo博客并部署到github.io
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-08-04T06:02:17+00:00"
-              content="2019-08-04">
-          08-04
-        </time>
-      </div>
+              
+            
+          </h2>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
 
+              
+                
+              
 
+              <time title="Created: 2019-08-04 06:02:17 / Modified: 06:52:10" itemprop="dateCreated datePublished" datetime="2019-08-04T06:02:17+00:00">2019-08-04</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/blog/" itemprop="url" rel="index"><span itemprop="name">blog</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+        <p>最近换了份工作, 所以想把拖延了很久的blog重拾起来, 除了<a href="https://blog.csdn.net/ilfrost" target="_blank" rel="noopener">CSDN</a>还想维护一份<a href="https://rexg.github.io/" target="_blank" rel="noopener">github.io</a>, 所以先设置下本地的hexo环境.</p>
+<p>但是都9102年了, 应该使用Docker setup 比较好.</p>
+<ol>
+<li><p>使用我已经制作好的docker image</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull rexg/blog</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动容器</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#设置你本地的外挂folder</span><br><span class="line">docker run -it xx -p 4000:4000 -v &lt;replace-your-local-folder&gt;:/blog /bin/bash</span><br></pre></td></tr></table></figure>
+
+<p> 此时,本地hexo环境基本已经设置好了,使用以下命令验证..</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+
+<p> 如果可以看到以下提示,及证明hexo本地环境设置完毕:</p>
+<blockquote>
+<p>   root@d88b6f910ecb:/blog# hexo s<br>   INFO  Start processing<br>   INFO  Hexo is running at <a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a> . Press Ctrl+C to stop.</p>
+</blockquote>
+</li>
+<li><p>个性化设置, 请参与<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">Hexo文档</a></p>
+</li>
+<li><p>创建Github.io的repo后, 配置hexo deploy到github上</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#修改hexo配置文件: _config.xml</span><br><span class="line">deploy:</span><br><span class="line">type: git</span><br><span class="line">repo: https://github.com/&lt;your-own&gt;/&lt;github.io--you-just-created&gt;</span><br><span class="line">branch: master</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用<code>hexo new &lt;title&gt;</code>创建新blog,然后<code>hexo deploy</code>就大功告成了 :D</p>
+</li>
+</ol>
 
     </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/Docker/" rel="tag"><i class="fa fa-tag"></i> Docker</a>
+          
+            <a href="/tags/Hexo/" rel="tag"><i class="fa fa-tag"></i> Hexo</a>
+          
+            <a href="/tags/Github/" rel="tag"><i class="fa fa-tag"></i> Github</a>
+          
+        </div>
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
-
+  </div>
 
 
           </div>
           
+
 
         </div>
           
@@ -516,5 +567,9 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
 </body>
 </html>

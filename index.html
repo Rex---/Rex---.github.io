@@ -225,7 +225,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/RexG/2019/08/04/hello-world/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/RexG/2019/08/04/blog/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rex">
@@ -242,7 +242,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/08/04/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+                <a href="/2019/08/04/blog/" class="post-title-link" itemprop="url">使用Docker创建Hexo博客并部署到github.io</a>
               
             
           </h2>
@@ -261,7 +261,26 @@
                 
               
 
-              <time title="Created: 2019-08-04 03:31:55" itemprop="dateCreated datePublished" datetime="2019-08-04T03:31:55+00:00">2019-08-04</time>
+              <time title="Created: 2019-08-04 06:02:17 / Modified: 06:52:10" itemprop="dateCreated datePublished" datetime="2019-08-04T06:02:17+00:00">2019-08-04</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/blog/" itemprop="url" rel="index"><span itemprop="name">blog</span></a></span>
+
+                
+                
+              
             </span>
           
 
@@ -277,19 +296,31 @@
 
       
           
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+            <p>最近换了份工作, 所以想把拖延了很久的blog重拾起来, 除了<a href="https://blog.csdn.net/ilfrost" target="_blank" rel="noopener">CSDN</a>还想维护一份<a href="https://rexg.github.io/" target="_blank" rel="noopener">github.io</a>, 所以先设置下本地的hexo环境.</p>
+<p>但是都9102年了, 应该使用Docker setup 比较好.</p>
+<ol>
+<li><p>使用我已经制作好的docker image</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull rexg/blog</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动容器</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#设置你本地的外挂folder</span><br><span class="line">docker run -it xx -p 4000:4000 -v &lt;replace-your-local-folder&gt;:/blog /bin/bash</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p> 此时,本地hexo环境基本已经设置好了,使用以下命令验证..</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<p> 如果可以看到以下提示,及证明hexo本地环境设置完毕:</p>
+<blockquote>
+<p>   root@d88b6f910ecb:/blog# hexo s<br>   INFO  Start processing<br>   INFO  Hexo is running at <a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a> . Press Ctrl+C to stop.</p>
+</blockquote>
+</li>
+<li><p>个性化设置, 请参与<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">Hexo文档</a></p>
+</li>
+<li><p>创建Github.io的repo后, 配置hexo deploy到github上</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#修改hexo配置文件: _config.xml</span><br><span class="line">deploy:</span><br><span class="line">type: git</span><br><span class="line">repo: https://github.com/&lt;your-own&gt;/&lt;github.io--you-just-created&gt;</span><br><span class="line">branch: master</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用<code>hexo new &lt;title&gt;</code>创建新blog,然后<code>hexo deploy</code>就大功告成了 :D</p>
+</li>
+</ol>
 
           
         
@@ -352,6 +383,50 @@
         </a>
       </div>
     
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
   </nav>
 
 
@@ -393,7 +468,7 @@
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Rex</span>
+  <span class="author" itemprop="copyrightHolder">作者拥有版权,转载请注明出处</span>
 </div>
 
         
