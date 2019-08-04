@@ -281,52 +281,28 @@
 
       
           
-            <ul>
-<li><p>Ctrl + Alt + O : 优化导入的类和包</p>
-</li>
-<li><p>Ctrl + Shift + U : 大小写转换</p>
-</li>
-<li><p>Alt + Enter : 各种修正</p>
-</li>
-<li><p>Alt + /  或者 Ctrl + Space 或者 Ctrl + Shift + Space: 代码提示</p>
-</li>
-<li><p>Ctrl + Alt + L : 代码格式化</p>
-</li>
-<li><p>Ctrl + E : 最近编辑过的文件</p>
-</li>
-<li><p>Ctrl + P : 方法参数提示</p>
-</li>
-<li><p>Ctrl + Q : 查看当前方法的声明</p>
-</li>
-<li><p>Alt + 数字 : 跳转到对应的试图</p>
-</li>
-<li><p>Ctrl + F12 : 悬浮窗展示当前文件结构</p>
-</li>
-<li><p>Ctrl + Shift + Alt + N / 双击 Shift: 查找</p>
-</li>
-<li><p>Ctrl + G : 定位到某行</p>
-</li>
-<li><p>Ctrl + W : 选中代码,可以连续按,效果不一样</p>
-</li>
-<li><p>Ctrl + Shift + 上下键 : 上下移动代码</p>
-</li>
-<li><p>Ctrl + X : 删除行</p>
-</li>
-<li><p>Ctrl + D : 复制行</p>
-</li>
-<li><p>Ctrl + Z : 撤销</p>
-</li>
-<li><p>Ctrl + Shift + Z : 取消撤销</p>
-</li>
-<li><p>Ctrl + / : 使用//注释代码</p>
-</li>
-<li><p>Ctrl + Shift + / : 使用/<em>..</em>/ 注释选中的代码</p>
-</li>
-<li><p>Ctrl + Shift + Alt + T : 重构</p>
-</li>
-</ul>
+            <p>
+              
+Ctrl + Alt + O : 优化导入的类和包
 
+Ctrl + Shift + U : 大小写转换
+
+Alt + Enter : 各种修正
+
+Alt + /  或者 Ctrl + Space 或者 Ctrl + Shift + Space: 代码提示
+
+Ctrl + Alt + L : 代码格
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/08/04/IntelliJ-Idea/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -423,33 +399,26 @@
 
       
           
-            <p>最近换了份工作, 所以想把拖延了很久的blog重拾起来, 除了<a href="https://blog.csdn.net/ilfrost" target="_blank" rel="noopener">CSDN</a>还想维护一份<a href="https://rexg.github.io/" target="_blank" rel="noopener">github.io</a>, 所以先设置下本地的hexo环境.</p>
-<p>但是都9102年了, 应该使用Docker setup 比较好.</p>
-<ol>
-<li><p>使用我已经制作好的docker </p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull rexg/blog</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>启动容器</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#设置你本地的外挂folder</span><br><span class="line">docker run -it xx -p 4000:4000 -v &lt;replace-your-local-folder&gt;:/blog /bin/bash</span><br></pre></td></tr></table></figure>
+            <p>
+              最近换了份工作, 所以想把拖延了很久的blog重拾起来, 除了CSDN还想维护一份github.io, 所以先设置下本地的hexo环境.
+但是都9102年了, 应该使用Docker setup 比较好.
 
-<p> 此时,本地hexo环境基本已经设置好了,使用以下命令验证..</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+使用我已经制作好的docker 
+ docker pull rexg/blog
 
-<p> 如果可以看到以下提示,及证明hexo本地环境设置完毕:</p>
-<blockquote>
-<p>   root@d88b6f910ecb:/blog# hexo s<br>   INFO  Start processing<br>   INFO  Hexo is running at <a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a> . Press Ctrl+C to stop.</p>
-</blockquote>
-</li>
-<li><p>个性化设置, 请参与<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">Hexo文档</a></p>
-</li>
-<li><p>创建Github.io的repo后, 配置hexo deploy到github上</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#修改hexo配置文件: _config.xml</span><br><span class="line">deploy:</span><br><span class="line">type: git</span><br><span class="line">repo: https://github.com/&lt;your-own&gt;/&lt;github.io--you-just-created&gt;</span><br><span class="line">branch: master</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用<code>hexo new &lt;title&gt;</code>创建新blog,然后<code>hexo deploy</code>就大功告成了 :D</p>
-</li>
-</ol>
-
+启动容器
+ 
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/08/04/blog/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
