@@ -55,15 +55,19 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="categories">
-<meta property="og:url" content="https://github.com/RexG/categories/index.html">
+  <meta name="description" content="ILMElasticsearch在升级到7.x之后,推出了一项新功能ILM,用于管理被大家诟病已久的index lifecycle management问题,只需要在kibana内简单配置,就可以管理以前我们不得不设置cronjob去删除index的工作. 但是有个小不便,ILM只能apply到index template上,而不同component向ES feed数据时,有的会创建index t">
+<meta name="keywords" content="elasticsearch,logstash,ILM,fluentd,kibana">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elasticsearch ILM (index lifecycle management): logstash vs fluentd">
+<meta property="og:url" content="https://github.com/RexG/2019/08/31/logstashILM/index.html">
 <meta property="og:site_name" content="Rex Tech Blog">
+<meta property="og:description" content="ILMElasticsearch在升级到7.x之后,推出了一项新功能ILM,用于管理被大家诟病已久的index lifecycle management问题,只需要在kibana内简单配置,就可以管理以前我们不得不设置cronjob去删除index的工作. 但是有个小不便,ILM只能apply到index template上,而不同component向ES feed数据时,有的会创建index t">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-04T04:10:53.041Z">
+<meta property="og:updated_time" content="2019-08-31T07:28:06.299Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="categories">
-  <link rel="canonical" href="https://github.com/RexG/categories/">
+<meta name="twitter:title" content="Elasticsearch ILM (index lifecycle management): logstash vs fluentd">
+<meta name="twitter:description" content="ILMElasticsearch在升级到7.x之后,推出了一项新功能ILM,用于管理被大家诟病已久的index lifecycle management问题,只需要在kibana内简单配置,就可以管理以前我们不得不设置cronjob去删除index的工作. 但是有个小不便,ILM只能apply到index template上,而不同component向ES feed数据时,有的会创建index t">
+  <link rel="canonical" href="https://github.com/RexG/2019/08/31/logstashILM/">
 
 
 <script id="page-configurations">
@@ -71,13 +75,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
-    isPage: true,
+    isPost: true,
+    isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>categories | Rex Tech Blog</title>
+  <title>Elasticsearch ILM (index lifecycle management): logstash vs fluentd | Rex Tech Blog</title>
   
 
 
@@ -216,83 +220,135 @@
         <div class="content-wrap">
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
           <div id="content" class="content page-post-detail">
             
 
   <div id="posts" class="posts-expand">
     
-    
-    
-    <div class="post-block page">
+    <div class="reading-progress-bar"></div>
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/RexG/2019/08/31/logstashILM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rex">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/6408076?s=400&u=e19f07fc81114baf9c38894def833a779a61982a&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rex Tech Blog">
+    </span>
       <header class="post-header">
 
-<h2 class="post-title" itemprop="name headline">categories
-
-</h2>
-
-<div class="post-meta">
-  
-
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
-          <div class="category-all-page">
-            <div class="category-all-title">
+          <h2 class="post-title" itemprop="name headline">Elasticsearch ILM (index lifecycle management): logstash vs fluentd
+
               
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-              3 categories in total
-            </div>
-            <div class="category-all">
-              <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/blog/">blog</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/elasticsearch/">elasticsearch</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/machine-learning/">machine-learning</a><span class="category-list-count">1</span></li></ul>
-            </div>
-          </div>
+            
+          </h2>
         
-      </div>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-08-31 07:15:24 / Modified: 07:28:06" itemprop="dateCreated datePublished" datetime="2019-08-31T07:15:24+00:00">2019-08-31</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/elasticsearch/" itemprop="url" rel="index"><span itemprop="name">elasticsearch</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-      
-      
+        <h2 id="ILM"><a href="#ILM" class="headerlink" title="ILM"></a>ILM</h2><p>Elasticsearch在升级到7.x之后,推出了一项新功能<code>ILM</code>,用于管理被大家诟病已久的index lifecycle management问题,只需要在kibana内简单配置,就可以管理以前我们不得不设置cronjob去删除index的工作.</p>
+<p>但是有个小不便,ILM只能apply到index template上,而不同component向ES feed数据时,有的会创建index template,有的不会.</p>
+<h3 id="fluentd"><a href="#fluentd" class="headerlink" title="fluentd"></a>fluentd</h3><p>完全不会创建index template,所以只能手动创建index template</p>
+<h3 id="logstash"><a href="#logstash" class="headerlink" title="logstash"></a>logstash</h3><p>logstash会创建index template,但是大部分时候我们需要使用自定义的index template,这时不得不override掉default的.</p>
+<p>使用<code>template_name</code>制定自己创建的template,就可以替换掉default的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">input &#123;</span><br><span class="line">    file &#123;</span><br><span class="line">        path =&gt; &quot;/var/log/*&quot;</span><br><span class="line">        type =&gt; &quot;system&quot;</span><br><span class="line">        start_position =&gt; &quot;beginning&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">output &#123;</span><br><span class="line">    elasticsearch &#123;</span><br><span class="line">        hosts =&gt; [&quot;127.0.0.1:9200&quot;]</span><br><span class="line">        index =&gt; &quot;system-%&#123;+YYYY.MM.dd&#125;&quot;</span><br><span class="line">	template_name =&gt; &quot;system_template&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
     </div>
-    
 
     
     
     
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/elasticsearch/" rel="tag"><i class="fa fa-tag"></i> elasticsearch</a>
+          
+            <a href="/tags/logstash/" rel="tag"><i class="fa fa-tag"></i> logstash</a>
+          
+            <a href="/tags/ILM/" rel="tag"><i class="fa fa-tag"></i> ILM</a>
+          
+            <a href="/tags/fluentd/" rel="tag"><i class="fa fa-tag"></i> fluentd</a>
+          
+            <a href="/tags/kibana/" rel="tag"><i class="fa fa-tag"></i> kibana</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2019/08/31/logstashlate8hours/" rel="next" title="Logstash timezone UTC issue">
+                <i class="fa fa-chevron-left"></i> Logstash timezone UTC issue
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
   </div>
 
 
@@ -313,8 +369,17 @@
 
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -424,6 +489,23 @@
 
         </div>
       </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ILM"><span class="nav-number">1.</span> <span class="nav-text">ILM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fluentd"><span class="nav-number">1.1.</span> <span class="nav-text">fluentd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#logstash"><span class="nav-number">1.2.</span> <span class="nav-text">logstash</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
     </div>
   </aside>
@@ -530,10 +612,9 @@
 
 
   
-    <script src="/js/scrollspy.js?v=7.3.0"></script>
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
 <script src="/js/post-details.js?v=7.3.0"></script>
 
-  
 
 </body>
 </html>

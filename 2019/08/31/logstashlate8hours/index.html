@@ -55,15 +55,19 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="categories">
-<meta property="og:url" content="https://github.com/RexG/categories/index.html">
+  <meta name="description" content="问题现象Logstash向ES输入的数据，总是滞后8小时… 导致0～8点的数据，都会写入前一天的logstash index… 既然总是落后8小时,自然就联想到了时区的问题,查了下果然线上使用的是UTC时间  默认的@timestamp默认的时间是UTC time  解决问题在logstash中，将@timestamp转换 1234567891011121314151617filter&amp;#123;">
+<meta name="keywords" content="elasticsearch,logstash">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Logstash timezone UTC issue">
+<meta property="og:url" content="https://github.com/RexG/2019/08/31/logstashlate8hours/index.html">
 <meta property="og:site_name" content="Rex Tech Blog">
+<meta property="og:description" content="问题现象Logstash向ES输入的数据，总是滞后8小时… 导致0～8点的数据，都会写入前一天的logstash index… 既然总是落后8小时,自然就联想到了时区的问题,查了下果然线上使用的是UTC时间  默认的@timestamp默认的时间是UTC time  解决问题在logstash中，将@timestamp转换 1234567891011121314151617filter&amp;#123;">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-04T04:10:53.041Z">
+<meta property="og:updated_time" content="2019-08-31T07:12:02.426Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="categories">
-  <link rel="canonical" href="https://github.com/RexG/categories/">
+<meta name="twitter:title" content="Logstash timezone UTC issue">
+<meta name="twitter:description" content="问题现象Logstash向ES输入的数据，总是滞后8小时… 导致0～8点的数据，都会写入前一天的logstash index… 既然总是落后8小时,自然就联想到了时区的问题,查了下果然线上使用的是UTC时间  默认的@timestamp默认的时间是UTC time  解决问题在logstash中，将@timestamp转换 1234567891011121314151617filter&amp;#123;">
+  <link rel="canonical" href="https://github.com/RexG/2019/08/31/logstashlate8hours/">
 
 
 <script id="page-configurations">
@@ -71,13 +75,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
-    isPage: true,
+    isPost: true,
+    isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>categories | Rex Tech Blog</title>
+  <title>Logstash timezone UTC issue | Rex Tech Blog</title>
   
 
 
@@ -216,83 +220,134 @@
         <div class="content-wrap">
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
           <div id="content" class="content page-post-detail">
             
 
   <div id="posts" class="posts-expand">
     
-    
-    
-    <div class="post-block page">
+    <div class="reading-progress-bar"></div>
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/RexG/2019/08/31/logstashlate8hours/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rex">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/6408076?s=400&u=e19f07fc81114baf9c38894def833a779a61982a&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rex Tech Blog">
+    </span>
       <header class="post-header">
 
-<h2 class="post-title" itemprop="name headline">categories
-
-</h2>
-
-<div class="post-meta">
-  
-
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
-          <div class="category-all-page">
-            <div class="category-all-title">
+          <h2 class="post-title" itemprop="name headline">Logstash timezone UTC issue
+
               
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-              3 categories in total
-            </div>
-            <div class="category-all">
-              <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/blog/">blog</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/elasticsearch/">elasticsearch</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/machine-learning/">machine-learning</a><span class="category-list-count">1</span></li></ul>
-            </div>
-          </div>
+            
+          </h2>
         
-      </div>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-08-31 07:06:59 / Modified: 07:12:02" itemprop="dateCreated datePublished" datetime="2019-08-31T07:06:59+00:00">2019-08-31</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/elasticsearch/" itemprop="url" rel="index"><span itemprop="name">elasticsearch</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-      
-      
+        <h2 id="问题现象"><a href="#问题现象" class="headerlink" title="问题现象"></a>问题现象</h2><p>Logstash向ES输入的数据，总是滞后8小时… 导致0～8点的数据，都会写入前一天的logstash index…</p>
+<p>既然总是落后8小时,自然就联想到了时区的问题,查了下果然线上使用的是UTC时间</p>
+<blockquote>
+<p>默认的@timestamp默认的时间是UTC time</p>
+</blockquote>
+<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>在logstash中，将@timestamp转换</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">filter&#123;</span><br><span class="line">..........</span><br><span class="line">    ruby &#123;</span><br><span class="line">        code =&gt; &quot;event.set(&apos;index_day&apos;, event.get(&apos;[@timestamp]&apos;).time.localtime.strftime(&apos;%Y%m%d&apos;))&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    ##或者试试下面的</span><br><span class="line">    ruby &#123;</span><br><span class="line">        code =&gt; &quot;event[&apos;@timestamp&apos;] = event[&apos;@timestamp&apos;].getlocal&quot;</span><br><span class="line">    ｝</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">output &#123;</span><br><span class="line">  csv &#123;</span><br><span class="line">     path =&gt; &quot;/var/csv_reports/%&#123;index_day&#125;/transaction-report.csv&quot;</span><br><span class="line">     fields =&gt; [&quot;timestamp&quot;,&quot;tid&quot;,&quot;api&quot;,&quot;publisher&quot;,&quot;user&quot;,&quot;consumerKey&quot;,&quot;application&quot;,&quot;app_id&quot;]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
     </div>
-    
 
     
     
     
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/elasticsearch/" rel="tag"><i class="fa fa-tag"></i> elasticsearch</a>
+          
+            <a href="/tags/logstash/" rel="tag"><i class="fa fa-tag"></i> logstash</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2019/08/30/PytorchRnnIssue/" rel="next" title="Pytorch RNN CPU Issue">
+                <i class="fa fa-chevron-left"></i> Pytorch RNN CPU Issue
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2019/08/31/logstashILM/" rel="prev" title="Elasticsearch ILM (index lifecycle management): logstash vs fluentd">
+                Elasticsearch ILM (index lifecycle management): logstash vs fluentd <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
   </div>
 
 
@@ -313,8 +368,17 @@
 
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -424,6 +488,23 @@
 
         </div>
       </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题现象"><span class="nav-number">1.</span> <span class="nav-text">问题现象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决问题"><span class="nav-number">2.</span> <span class="nav-text">解决问题</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
     </div>
   </aside>
@@ -530,10 +611,9 @@
 
 
   
-    <script src="/js/scrollspy.js?v=7.3.0"></script>
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
 <script src="/js/post-details.js?v=7.3.0"></script>
 
-  
 
 </body>
 </html>

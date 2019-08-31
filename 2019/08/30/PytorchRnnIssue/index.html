@@ -55,15 +55,19 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="categories">
-<meta property="og:url" content="https://github.com/RexG/categories/index.html">
+  <meta name="description" content="最近工作上在做搭建机器学习平台的相关工作,使用的是MLflow;但是线上的Data Scientist在使用Pytorch的时候遇到了问题,下面做个记录… 现象MLflow在部署使用Pytorch RNN训练的模型的时候,无法正常启动,内部的gunicorn的work无限重启,同时dump thread stack和heap到core文件,一度造成线上GFS run out of space… 由">
+<meta name="keywords" content="MLflow,Python,Pytorch,gbd,gunicorn,pod">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pytorch RNN CPU Issue">
+<meta property="og:url" content="https://github.com/RexG/2019/08/30/PytorchRnnIssue/index.html">
 <meta property="og:site_name" content="Rex Tech Blog">
+<meta property="og:description" content="最近工作上在做搭建机器学习平台的相关工作,使用的是MLflow;但是线上的Data Scientist在使用Pytorch的时候遇到了问题,下面做个记录… 现象MLflow在部署使用Pytorch RNN训练的模型的时候,无法正常启动,内部的gunicorn的work无限重启,同时dump thread stack和heap到core文件,一度造成线上GFS run out of space… 由">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-04T04:10:53.041Z">
+<meta property="og:updated_time" content="2019-08-31T07:04:24.551Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="categories">
-  <link rel="canonical" href="https://github.com/RexG/categories/">
+<meta name="twitter:title" content="Pytorch RNN CPU Issue">
+<meta name="twitter:description" content="最近工作上在做搭建机器学习平台的相关工作,使用的是MLflow;但是线上的Data Scientist在使用Pytorch的时候遇到了问题,下面做个记录… 现象MLflow在部署使用Pytorch RNN训练的模型的时候,无法正常启动,内部的gunicorn的work无限重启,同时dump thread stack和heap到core文件,一度造成线上GFS run out of space… 由">
+  <link rel="canonical" href="https://github.com/RexG/2019/08/30/PytorchRnnIssue/">
 
 
 <script id="page-configurations">
@@ -71,13 +75,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
-    isPage: true,
+    isPost: true,
+    isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>categories | Rex Tech Blog</title>
+  <title>Pytorch RNN CPU Issue | Rex Tech Blog</title>
   
 
 
@@ -216,83 +220,159 @@
         <div class="content-wrap">
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
           <div id="content" class="content page-post-detail">
             
 
   <div id="posts" class="posts-expand">
     
-    
-    
-    <div class="post-block page">
+    <div class="reading-progress-bar"></div>
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/RexG/2019/08/30/PytorchRnnIssue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rex">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/6408076?s=400&u=e19f07fc81114baf9c38894def833a779a61982a&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rex Tech Blog">
+    </span>
       <header class="post-header">
 
-<h2 class="post-title" itemprop="name headline">categories
-
-</h2>
-
-<div class="post-meta">
-  
-
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
-          <div class="category-all-page">
-            <div class="category-all-title">
+          <h2 class="post-title" itemprop="name headline">Pytorch RNN CPU Issue
+
               
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-              3 categories in total
-            </div>
-            <div class="category-all">
-              <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/blog/">blog</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/elasticsearch/">elasticsearch</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/machine-learning/">machine-learning</a><span class="category-list-count">1</span></li></ul>
-            </div>
-          </div>
+            
+          </h2>
         
-      </div>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-08-30 06:48:52" itemprop="dateCreated datePublished" datetime="2019-08-30T06:48:52+00:00">2019-08-30</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-08-31 07:04:24" itemprop="dateModified" datetime="2019-08-31T07:04:24+00:00">2019-08-31</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/machine-learning/" itemprop="url" rel="index"><span itemprop="name">machine-learning</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-      
-      
+        <p>最近工作上在做搭建机器学习平台的相关工作,使用的是MLflow;但是线上的Data Scientist在使用Pytorch的时候遇到了问题,下面做个记录…</p>
+<h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>MLflow在部署使用Pytorch RNN训练的模型的时候,无法正常启动,内部的gunicorn的work无限重启,同时dump thread stack和heap到core文件,一度造成线上GFS run out of space…</p>
+<p>由于我们的service是跑在k8s的Pod内的,最神奇的是一部分pod可以启动无问题,一部分不行…</p>
+<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>既然手里有core dump文件,那就分析,使用的是<code>gdb</code>,打开core文件后见到如下错误:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[New LWP 470]</span><br><span class="line">[Thread debugging using libthread_db enabled]</span><br><span class="line">Using host libthread_db library &quot;/lib/x86_64-linux-gnu/libthread_db.so.1&quot;.</span><br><span class="line">Core was generated by `/opt/conda/bin/python /opt/conda/bin/gunicorn --timeout 60 -b 0.0.0.0:5000 -w 4&apos;.</span><br><span class="line">Program terminated with signal SIGILL, Illegal instruction.</span><br><span class="line">#0  0x00007fc6db828ffa in Xbyak::Operand::Operand(int, Xbyak::Operand::Kind, int, bool) () from /opt/conda/lib/python3.6/site-packages/torch/lib/libcaffe2.so</span><br><span class="line">(gdb) where</span><br><span class="line">#0  0x00007fc6db828ffa in Xbyak::Operand::Operand(int, Xbyak::Operand::Kind, int, bool) () from /opt/conda/lib/python3.6/site-packages/torch/lib/libcaffe2.so</span><br><span class="line">#1  0x00007fc6d9bb0877 in _GLOBAL__sub_I_verbose.cpp () from /opt/conda/lib/python3.6/site-packages/torch/lib/libcaffe2.so</span><br><span class="line">#2  0x00007fc71d91879a in call_init (l=&lt;optimized out&gt;, argc=argc@entry=9, argv=argv@entry=0x7ffc9bc85ad8, env=env@entry=0x55bfa73c4d20) at dl-init.c:72</span><br></pre></td></tr></table></figure>
+
+<p>能看出来是Python和Pytorch的问题,google搜了下,很多人遇到过这个问题</p>
+<ul>
+<li><a href="https://github.com/ContinuumIO/anaconda-issues/issues/11190">same issue 01</a></li>
+<li><a href="https://github.com/pytorch/pytorch/issues/16843">same issue 02</a></li>
+</ul>
+<p>which is caused by the <strong>CPU architecture</strong></p>
+<p>cat /proc/cpuinfo | grep flag</p>
+<p>compared and reference from <a href="https://github.com/pytorch/pytorch/issues/16843">same-issue-from-github</a>, comfired that, that model works well on CPU <code>AVX2</code></p>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>upgrade pytorch to 1.2.0 to fix the issue</p>
+
     </div>
-    
 
     
     
     
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/MLflow/" rel="tag"><i class="fa fa-tag"></i> MLflow</a>
+          
+            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          
+            <a href="/tags/Pytorch/" rel="tag"><i class="fa fa-tag"></i> Pytorch</a>
+          
+            <a href="/tags/gbd/" rel="tag"><i class="fa fa-tag"></i> gbd</a>
+          
+            <a href="/tags/gunicorn/" rel="tag"><i class="fa fa-tag"></i> gunicorn</a>
+          
+            <a href="/tags/pod/" rel="tag"><i class="fa fa-tag"></i> pod</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2019/08/04/blog/" rel="next" title="使用Docker创建Hexo博客并部署到github.io">
+                <i class="fa fa-chevron-left"></i> 使用Docker创建Hexo博客并部署到github.io
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2019/08/31/logstashlate8hours/" rel="prev" title="Logstash timezone UTC issue">
+                Logstash timezone UTC issue <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
   </div>
 
 
@@ -313,8 +393,17 @@
 
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -424,6 +513,23 @@
 
         </div>
       </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#现象"><span class="nav-number">1.</span> <span class="nav-text">现象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决问题"><span class="nav-number">2.</span> <span class="nav-text">解决问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决办法"><span class="nav-number">3.</span> <span class="nav-text">解决办法</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
     </div>
   </aside>
@@ -530,10 +636,9 @@
 
 
   
-    <script src="/js/scrollspy.js?v=7.3.0"></script>
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
 <script src="/js/post-details.js?v=7.3.0"></script>
 
-  
 
 </body>
 </html>
