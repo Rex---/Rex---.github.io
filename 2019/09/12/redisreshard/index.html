@@ -55,15 +55,19 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="rexg.github.io/tags/index.html">
+  <meta name="description" content="线上的Redis集群使用的是5台Node组成的Redis Cluster,之前有一台node宕机重启之后,Redis service启动了,也还在Cluster内,但是一直不给分配slot. 就是说,16382个slot本来可以被均匀的分配到这5台node上,但现在只分配给其中的4台,第5个虽然可以接收client发送过来的请求,但是只能做到redirect request… 那只好手动resha">
+<meta name="keywords" content="Redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis reshard issue - timeout">
+<meta property="og:url" content="rexg.github.io/2019/09/12/redisreshard/index.html">
 <meta property="og:site_name" content="IT Panda Blog">
+<meta property="og:description" content="线上的Redis集群使用的是5台Node组成的Redis Cluster,之前有一台node宕机重启之后,Redis service启动了,也还在Cluster内,但是一直不给分配slot. 就是说,16382个slot本来可以被均匀的分配到这5台node上,但现在只分配给其中的4台,第5个虽然可以接收client发送过来的请求,但是只能做到redirect request… 那只好手动resha">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-04T04:09:43.623Z">
+<meta property="og:updated_time" content="2019-09-12T22:45:45.651Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
-  <link rel="canonical" href="rexg.github.io/tags/">
+<meta name="twitter:title" content="Redis reshard issue - timeout">
+<meta name="twitter:description" content="线上的Redis集群使用的是5台Node组成的Redis Cluster,之前有一台node宕机重启之后,Redis service启动了,也还在Cluster内,但是一直不给分配slot. 就是说,16382个slot本来可以被均匀的分配到这5台node上,但现在只分配给其中的4台,第5个虽然可以接收client发送过来的请求,但是只能做到redirect request… 那只好手动resha">
+  <link rel="canonical" href="rexg.github.io/2019/09/12/redisreshard/">
 
 
 <script id="page-configurations">
@@ -71,13 +75,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
-    isPage: true,
+    isPost: true,
+    isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>tags | IT Panda Blog</title>
+  <title>Redis reshard issue - timeout | IT Panda Blog</title>
   
 
 
@@ -216,141 +220,142 @@
         <div class="content-wrap">
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
           <div id="content" class="content page-post-detail">
             
 
   <div id="posts" class="posts-expand">
     
-    
-    
-    <div class="post-block page">
+    <div class="reading-progress-bar"></div>
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="rexg.github.io/2019/09/12/redisreshard/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rex">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/6408076?s=400&u=e19f07fc81114baf9c38894def833a779a61982a&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IT Panda Blog">
+    </span>
       <header class="post-header">
 
-<h2 class="post-title" itemprop="name headline">tags
-
-</h2>
-
-<div class="post-meta">
-  
-
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
+          <h2 class="post-title" itemprop="name headline">Redis reshard issue - timeout
+
               
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-              17 tags in total
-            </div>
-            <div class="tag-cloud-tags">
-              
-                <a href="/tags/Agile/" style="font-size: 12px; color: #ccc">Agile</a> <a href="/tags/Docker/" style="font-size: 30px; color: #111">Docker</a> <a href="/tags/Github/" style="font-size: 12px; color: #ccc">Github</a> <a href="/tags/Hexo/" style="font-size: 12px; color: #ccc">Hexo</a> <a href="/tags/ILM/" style="font-size: 12px; color: #ccc">ILM</a> <a href="/tags/MLflow/" style="font-size: 12px; color: #ccc">MLflow</a> <a href="/tags/Project-Management/" style="font-size: 12px; color: #ccc">Project Management</a> <a href="/tags/Python/" style="font-size: 12px; color: #ccc">Python</a> <a href="/tags/Pytorch/" style="font-size: 12px; color: #ccc">Pytorch</a> <a href="/tags/Redis/" style="font-size: 12px; color: #ccc">Redis</a> <a href="/tags/elasticsearch/" style="font-size: 30px; color: #111">elasticsearch</a> <a href="/tags/fluentd/" style="font-size: 12px; color: #ccc">fluentd</a> <a href="/tags/gbd/" style="font-size: 12px; color: #ccc">gbd</a> <a href="/tags/gunicorn/" style="font-size: 12px; color: #ccc">gunicorn</a> <a href="/tags/kibana/" style="font-size: 12px; color: #ccc">kibana</a> <a href="/tags/logstash/" style="font-size: 30px; color: #111">logstash</a> <a href="/tags/pod/" style="font-size: 12px; color: #ccc">pod</a>
-              
-            </div>
-          </div>
+            
+          </h2>
         
-      </div>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-09-12 22:21:19 / Modified: 22:45:45" itemprop="dateCreated datePublished" datetime="2019-09-12T22:21:19+00:00">2019-09-12</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-      
-      
+        <p>线上的Redis集群使用的是5台Node组成的<code>Redis Cluster</code>,之前有一台node宕机重启之后,Redis service启动了,也还在Cluster内,但是一直不给分配<code>slot</code>.</p>
+<p>就是说,<strong>16382</strong>个<code>slot</code>本来可以被均匀的分配到这5台node上,但现在只分配给其中的4台,第5个虽然可以接收client发送过来的请求,但是只能做到<code>redirect request</code>…</p>
+<p>那只好手动<code>reshard</code>一下,将一部分的<code>slot</code>转移到第5台node上.</p>
+<hr>
+<h2 id="开始操作"><a href="#开始操作" class="headerlink" title="开始操作"></a>开始操作</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./redis-cli --cluster reshard &lt;node-5&gt;</span><br></pre></td></tr></table></figure>
+
+<p>但是会hang住,并一会儿就timeout了… 反复了几次,reshard都失败了…</p>
+<h2 id="问题排查"><a href="#问题排查" class="headerlink" title="问题排查"></a>问题排查</h2><p>既然报timeout错误,那就要找原因; 首先可以肯定的是migrate slot的timeout,然后再查看下slot是不是很大,或者说,是不是kv很大</p>
+<p>下面的几个命令有助于分析</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">redis自带的分析大key的命令</span><br><span class="line">./redis-cli -h &lt;node&gt; -p &lt;port&gt; --bigkeys</span><br><span class="line"></span><br><span class="line">分析slowlog</span><br><span class="line">./redis-cli</span><br><span class="line">&lt;node&gt; &gt; SLOWLOG GET</span><br></pre></td></tr></table></figure>
+
+<p>使用上述命令确认了,kv都不小slot也是,所以reshard在migrate slot的时候,会需要一段时间,而默认的timeout不足以完成,所以需要跳大timeout, 需要加上<code>---timeout xx</code>, 再试.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./redis-cli --cluster reshard &lt;node&gt; --cluster-timeout 120000</span><br></pre></td></tr></table></figure>
+
+<p>Done, 成功了!</p>
+<p>但是还没完, 还需要<code>rebalance</code>一下, 平衡各个node之间的slot分布</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./redis-cli --cluster rebalance &lt;node&gt;</span><br></pre></td></tr></table></figure>
+
+
     </div>
-    
 
     
     
     
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/Redis/" rel="tag"><i class="fa fa-tag"></i> Redis</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2019/09/08/agile/" rel="next" title="Agile: Epic vs User-Story vs Task">
+                <i class="fa fa-chevron-left"></i> Agile: Epic vs User-Story vs Task
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2019/09/12/dockernonenone/" rel="prev" title="Docker &lt;none&gt;:&lt;none&gt; - dangling">
+                Docker &lt;none&gt;:&lt;none&gt; - dangling <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
   </div>
 
 
@@ -371,8 +376,17 @@
 
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -494,6 +508,23 @@
 
         </div>
       </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#开始操作"><span class="nav-number">1.</span> <span class="nav-text">开始操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题排查"><span class="nav-number">2.</span> <span class="nav-text">问题排查</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
     </div>
   </aside>
@@ -600,10 +631,9 @@
 
 
   
-    <script src="/js/scrollspy.js?v=7.3.0"></script>
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
 <script src="/js/post-details.js?v=7.3.0"></script>
 
-  
 
 </body>
 </html>
