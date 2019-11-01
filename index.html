@@ -225,6 +225,140 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="rexg.github.io/2019/11/01/kubernetes-dns/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rex">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/6408076?s=400&u=e19f07fc81114baf9c38894def833a779a61982a&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IT Panda Blog">
+    </span>
+      <header class="post-header">
+
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/11/01/kubernetes-dns/" class="post-title-link" itemprop="url">Kubernetes DNS, kube-dns, CoreDNS</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-11-01 22:16:41 / Modified: 22:27:37" itemprop="dateCreated datePublished" datetime="2019-11-01T22:16:41+00:00">2019-11-01</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/kubernetes/dns/" itemprop="url" rel="index"><span itemprop="name">dns</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/kubernetes/dns/coredns/" itemprop="url" rel="index"><span itemprop="name">coredns</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/kubernetes/dns/coredns/kube-dns/" itemprop="url" rel="index"><span itemprop="name">kube-dns</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>
+              最近公司的k8s集群中不时的会出现域名解析的问题,但排查问题的过程却费了些时间,为了以后的经验积累,在这里在梳理下用到的基本知识.
+DNS: /etc/resolv.conf有四个重要的元素:
+
+nameserver //定义DNS服务器的IP地址,可以有多个,分行即可
+domain       /
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/11/01/kubernetes-dns/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="rexg.github.io/2019/10/27/mysql-deadlock/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1239,116 +1373,6 @@ User Story vs. Task在JIRA中,User Story与Task可以算作
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="rexg.github.io/2019/08/31/logstashILM/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Rex">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/6408076?s=400&u=e19f07fc81114baf9c38894def833a779a61982a&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IT Panda Blog">
-    </span>
-      <header class="post-header">
-
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/08/31/logstashILM/" class="post-title-link" itemprop="url">Elasticsearch ILM (index lifecycle management): logstash vs fluentd</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-08-31 07:15:24 / Modified: 07:28:06" itemprop="dateCreated datePublished" datetime="2019-08-31T07:15:24+00:00">2019-08-31</time>
-            </span>
-          
-            
-
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/elasticsearch/" itemprop="url" rel="index"><span itemprop="name">elasticsearch</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p>
-              ILMElasticsearch在升级到7.x之后,推出了一项新功能ILM,用于管理被大家诟病已久的index lifecycle management问题,只需要在kibana内简单配置,就可以管理以前我们不得不设置cronjob去删除index的工作.
-但是有个小不便,ILM只能apply到in
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/08/31/logstashILM/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1389,7 +1413,7 @@ User Story vs. Task在JIRA中,User Story与Task可以算作
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1430,7 +1454,15 @@ User Story vs. Task在JIRA中,User Story与Task可以算作
         
           
         
-        <span class="site-state-item-count">13</span>
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">categories</span>
         </a>
       </div>
@@ -1505,7 +1537,15 @@ User Story vs. Task在JIRA中,User Story与Task可以算作
         
           
         
-        <span class="site-state-item-count">30</span>
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">34</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>

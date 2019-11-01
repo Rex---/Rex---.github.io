@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next gemini use-motion" lang="">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    save_scroll: false,
+    copycode: {"enable":true,"show_result":true,"style":"default"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="最近公司的k8s集群中不时的会出现域名解析的问题,但排查问题的过程却费了些时间,为了以后的经验积累,在这里在梳理下用到的基本知识. DNS: /etc/resolv.conf有四个重要的元素:  nameserver //定义DNS服务器的IP地址,可以有多个,分行即可 domain       //定义本地域名 search        //定义域名的搜索列表,可以是多个,空格分隔即可 sor">
+<meta name="keywords" content="kubernetes,dns,kube-dns,coredns">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kubernetes DNS, kube-dns, CoreDNS">
+<meta property="og:url" content="rexg.github.io/2019/11/01/kubernetes-dns/index.html">
+<meta property="og:site_name" content="IT Panda Blog">
+<meta property="og:description" content="最近公司的k8s集群中不时的会出现域名解析的问题,但排查问题的过程却费了些时间,为了以后的经验积累,在这里在梳理下用到的基本知识. DNS: /etc/resolv.conf有四个重要的元素:  nameserver //定义DNS服务器的IP地址,可以有多个,分行即可 domain       //定义本地域名 search        //定义域名的搜索列表,可以是多个,空格分隔即可 sor">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-11-01T22:27:37.395Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kubernetes DNS, kube-dns, CoreDNS">
+<meta name="twitter:description" content="最近公司的k8s集群中不时的会出现域名解析的问题,但排查问题的过程却费了些时间,为了以后的经验积累,在这里在梳理下用到的基本知识. DNS: /etc/resolv.conf有四个重要的元素:  nameserver //定义DNS服务器的IP地址,可以有多个,分行即可 domain       //定义本地域名 search        //定义域名的搜索列表,可以是多个,空格分隔即可 sor">
+  <link rel="canonical" href="rexg.github.io/2019/11/01/kubernetes-dns/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Kubernetes DNS, kube-dns, CoreDNS | IT Panda Blog</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e43c026437f5ec63a068de07e1dbed9e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">IT Panda Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">Life is fantastic</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+
+  <a href="https://github.com/RexG" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+    <div class="reading-progress-bar"></div>
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="rexg.github.io/2019/11/01/kubernetes-dns/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rex">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/6408076?s=400&u=e19f07fc81114baf9c38894def833a779a61982a&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IT Panda Blog">
+    </span>
+      <header class="post-header">
+
+        
+          <h2 class="post-title" itemprop="name headline">Kubernetes DNS, kube-dns, CoreDNS
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-11-01 22:16:41 / Modified: 22:27:37" itemprop="dateCreated datePublished" datetime="2019-11-01T22:16:41+00:00">2019-11-01</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/kubernetes/dns/" itemprop="url" rel="index"><span itemprop="name">dns</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/kubernetes/dns/coredns/" itemprop="url" rel="index"><span itemprop="name">coredns</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/kubernetes/dns/coredns/kube-dns/" itemprop="url" rel="index"><span itemprop="name">kube-dns</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>最近公司的k8s集群中不时的会出现域名解析的问题,但排查问题的过程却费了些时间,为了以后的经验积累,在这里在梳理下用到的基本知识.</p>
+<h2 id="DNS-etc-resolv-conf"><a href="#DNS-etc-resolv-conf" class="headerlink" title="DNS: /etc/resolv.conf"></a>DNS: /etc/resolv.conf</h2><p>有四个重要的元素:</p>
+<ul>
+<li>nameserver //定义DNS服务器的IP地址,可以有多个,分行即可</li>
+<li>domain       //定义本地域名</li>
+<li>search        //定义域名的搜索列表,可以是多个,空格分隔即可</li>
+<li>sortlist        //对返回的域名进行排序</li>
+</ul>
+<h2 id="k8s-DNS-k8s集群中是如何处理DNS的"><a href="#k8s-DNS-k8s集群中是如何处理DNS的" class="headerlink" title="k8s DNS: k8s集群中是如何处理DNS的"></a>k8s DNS: k8s集群中是如何处理DNS的</h2><p>每个k8s集群都会处理DNS的pod和service.</p>
+<h3 id="DNS-name"><a href="#DNS-name" class="headerlink" title="DNS name"></a>DNS name</h3><p>k8s中的每个service都被assign了DNS name,这样在搜索的时候就可以按照一下规则来处理:</p>
+<ul>
+<li>如果: service a和b都处于同一个namespace,那么a就可以直接search b</li>
+<li>如果: service b处于另外一个namespace B,那么a就需要通过b.B来search</li>
+</ul>
+<p>一个正常的DNS record: <code>my-svc.my-namespace.svc.cluster-domain.example</code> 这就是经常说的 <code>FQDN, full qualified domain name</code></p>
+<h3 id="k8s-Pod-DNS-policy"><a href="#k8s-Pod-DNS-policy" class="headerlink" title="k8s Pod DNS policy"></a>k8s Pod DNS policy</h3><p>k8s的pod可以有四种DNS policy,只需要指定<code>dnsPolicy</code>元素即可,但是常用也就两种:</p>
+<ul>
+<li>default: pod继承DNS configuration from 它所运行在的node</li>
+<li>ClusterFirst: 正如名字所说的,pod现在k8s cluster内部做DNS解析,如果找不到,再去从其他地方做查询,比如它所运行的node,或是另外一个DNS server</li>
+</ul>
+<h3 id="kube-DNS"><a href="#kube-DNS" class="headerlink" title="kube-DNS"></a>kube-DNS</h3><p>在k8s v1.11之前,k8s使用<code>kube-dns</code>来做DNS service:</p>
+<ul>
+<li>会有一个<code>kube-dns</code>的service和它的几个pod</li>
+<li>这个<code>kube-dns</code>会监听<strong>service</strong>和<strong>endpoint</strong>的event(类似service discovery)来更新dns records.</li>
+<li><code>kubectl</code>将新建pod的<code>/etc/resolv.conf</code>的DNS server设置成DNS service的IP</li>
+<li>之后DNS就可以在cluster内部做DNS解析了</li>
+</ul>
+<h2 id="CoreDNS"><a href="#CoreDNS" class="headerlink" title="CoreDNS"></a><a href="https://coredns.io/" target="_blank" rel="noopener">CoreDNS</a></h2><p>但是自动k8s v1.11之后,默认的dns就从kube-dns换成了coredns,那么为什么?<br>CodeDNS除了使用Go开发的,提供了所有kube-dns所提供的功能,并且还dns cache, health check等其他功能外,还在kube-dns的基础上做了如下的优化:</p>
+<ul>
+<li>提供了<code>round-robin</code>load balance策略</li>
+<li>在解析<code>100.1.1.1.namespace.svc.cluster.local</code>如果100.1.1.1根本不存在,kube-dns依然会解析成<code>100.1.1.1</code>,这会带来什么麻烦;而coredns会多做一步<strong>verify</strong>,只有在它真正存在的时候,才会resolve</li>
+</ul>
+<h3 id="CoreDNS-plugin-amp-configuration"><a href="#CoreDNS-plugin-amp-configuration" class="headerlink" title="CoreDNS plugin &amp; configuration"></a>CoreDNS plugin &amp; configuration</h3><p>CoreDNS是建立在众多plugin的基础上的,即基本所有的功能都是由plugin带来的,<a href="https://coredns.io/plugins/" target="_blank" rel="noopener">这里</a>可以找到所有的plugin,<a href="https://github.com/coredns/coredns.io/tree/master/content/manual" target="_blank" rel="noopener">这里</a>可以找到如何配置CoreDNS</p>
+<p>举一个CoreDNS的简单例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[ITPanda@panda001 ~]$ kubectl get configmap coredns -n kube-system -o yaml</span><br><span class="line">apiVersion: v1</span><br><span class="line">data:</span><br><span class="line">  Corefile: |</span><br><span class="line">    .:53 &#123;    #port53是默认的DNS port，这个括号里面的全都是plugins</span><br><span class="line">        errors #Any errors encountered during the query processing will be printed to standard output. The errors of particular type can be consolidated and printed once per some period of time.</span><br><span class="line">        health #When CoreDNS is up and running this returns a 200 OK HTTP status code</span><br><span class="line">        kubernetes cluster.local &#123;    #[plugin-kubernetes](https://github.com/coredns/coredns/tree/master/plugin/kubernetes)</span><br><span class="line">          pods insecure</span><br><span class="line">          upstream /etc/resolv.conf    #这个和下面的 proxy . /etc/resolv.conf配合，可以使用node上的DNS</span><br><span class="line">        &#125;</span><br><span class="line">        prometheus :9153    #With prometheus you export metrics from CoreDNS and any plugin that has them. The default location for the metrics is localhost:9153</span><br><span class="line">        proxy . /etc/resolv.conf</span><br><span class="line">        cache 30</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后,k8s官方介绍些如何trouble shooting k8s cluster DNS问题的方法,<a href="https://kubernetes.io/docs/tasks/administer-cluster/dns-debugging-resolution/" target="_blank" rel="noopener">看这里</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/kubernetes/" rel="tag"><i class="fa fa-tag"></i> kubernetes</a>
+          
+            <a href="/tags/dns/" rel="tag"><i class="fa fa-tag"></i> dns</a>
+          
+            <a href="/tags/kube-dns/" rel="tag"><i class="fa fa-tag"></i> kube-dns</a>
+          
+            <a href="/tags/coredns/" rel="tag"><i class="fa fa-tag"></i> coredns</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2019/10/27/mysql-deadlock/" rel="next" title="记一次Mysql死锁deadlock">
+                <i class="fa fa-chevron-left"></i> 记一次Mysql死锁deadlock
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="https://avatars3.githubusercontent.com/u/6408076?s=400&u=e19f07fc81114baf9c38894def833a779a61982a&v=4"
+      alt="Rex">
+  <p class="site-author-name" itemprop="name">Rex</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+  <div class="links-of-blogroll motion-element links-of-blogroll-block">
+    <div class="links-of-blogroll-title">
+      <i class="fa  fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://github.com/RexG/" title="https://github.com/RexG/" rel="noopener" target="_blank">GitHub</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/ilfrost" title="https://blog.csdn.net/ilfrost" rel="noopener" target="_blank">CSDN</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="/rex.guan@outlook.com" title="rex.guan@outlook.com">Email</a>
+        </li>
+      
+    </ul>
+  </div>
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#DNS-etc-resolv-conf"><span class="nav-number">1.</span> <span class="nav-text">DNS: /etc/resolv.conf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#k8s-DNS-k8s集群中是如何处理DNS的"><span class="nav-number">2.</span> <span class="nav-text">k8s DNS: k8s集群中是如何处理DNS的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS-name"><span class="nav-number">2.1.</span> <span class="nav-text">DNS name</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#k8s-Pod-DNS-policy"><span class="nav-number">2.2.</span> <span class="nav-text">k8s Pod DNS policy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kube-DNS"><span class="nav-number">2.3.</span> <span class="nav-text">kube-DNS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CoreDNS"><span class="nav-number">3.</span> <span class="nav-text">CoreDNS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CoreDNS-plugin-amp-configuration"><span class="nav-number">3.1.</span> <span class="nav-text">CoreDNS plugin &amp; configuration</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">作者拥有版权,转载请注明出处</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/reading_progress/reading_progress.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+</body>
+</html>
