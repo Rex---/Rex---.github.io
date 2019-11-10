@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next gemini use-motion" lang="">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    save_scroll: false,
+    copycode: {"enable":true,"show_result":true,"style":"default"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="MLflowMLflow: the open-source platform for the machine leaning lifecycle, 管理machine learning整个生命周期的一款开源产品,主要提供了三种服务:  MLflow Tracking: 记录并维护了machine learning的代码,数据,matrics,config,results…并结合UI展示 MLflo">
+<meta name="keywords" content="machine learning,mlflow,seldon,k8s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Train Machine Learning models with MLflow, Deploy with Seldon">
+<meta property="og:url" content="rexg.github.io/2019/11/10/MLflowSeldon/index.html">
+<meta property="og:site_name" content="IT Panda Blog">
+<meta property="og:description" content="MLflowMLflow: the open-source platform for the machine leaning lifecycle, 管理machine learning整个生命周期的一款开源产品,主要提供了三种服务:  MLflow Tracking: 记录并维护了machine learning的代码,数据,matrics,config,results…并结合UI展示 MLflo">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-11-10T08:19:53.069Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Train Machine Learning models with MLflow, Deploy with Seldon">
+<meta name="twitter:description" content="MLflowMLflow: the open-source platform for the machine leaning lifecycle, 管理machine learning整个生命周期的一款开源产品,主要提供了三种服务:  MLflow Tracking: 记录并维护了machine learning的代码,数据,matrics,config,results…并结合UI展示 MLflo">
+  <link rel="canonical" href="rexg.github.io/2019/11/10/MLflowSeldon/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Train Machine Learning models with MLflow, Deploy with Seldon | IT Panda Blog</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e43c026437f5ec63a068de07e1dbed9e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">IT Panda Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">Life is fantastic</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+
+  <a href="https://github.com/RexG" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+    <div class="reading-progress-bar"></div>
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="rexg.github.io/2019/11/10/MLflowSeldon/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rex">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/6408076?s=400&u=e19f07fc81114baf9c38894def833a779a61982a&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IT Panda Blog">
+    </span>
+      <header class="post-header">
+
+        
+          <h2 class="post-title" itemprop="name headline">Train Machine Learning models with MLflow, Deploy with Seldon
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-11-10 07:52:20 / Modified: 08:19:53" itemprop="dateCreated datePublished" datetime="2019-11-10T07:52:20+00:00">2019-11-10</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/machine-learning/" itemprop="url" rel="index"><span itemprop="name">machine learning</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="MLflow"><a href="#MLflow" class="headerlink" title="MLflow"></a><a href="https://www.mlflow.org/" target="_blank" rel="noopener">MLflow</a></h2><p><strong>MLflow</strong>: the open-source platform for the machine leaning lifecycle, 管理machine learning整个生命周期的一款开源产品,主要提供了三种服务:</p>
+<ul>
+<li>MLflow Tracking: 记录并维护了machine learning的代码,数据,matrics,config,results…并结合UI展示</li>
+<li>MLflow Projects: 将machine learning的model带包成一个docker image,实现run anywhere</li>
+<li>MLflow Models: 标准化machine learning的model及其configuration files,实现与其他平台共同开发/部署</li>
+</ul>
+<p>几乎支持市面上的所有Machine Learning frameworks, TensorFlow/PyTorch/Spark/SKlearn/R…</p>
+<p>开源,并有着Databricks/Microsoft等一众公司的committer.</p>
+<h2 id="Seldon"><a href="#Seldon" class="headerlink" title="Seldon"></a><a href="https://www.seldon.io/" target="_blank" rel="noopener">Seldon</a></h2><p><strong>Seldon</strong>: the open-source platform to help deploy machine learning models, 主要focus在model的deployment</p>
+<ul>
+<li>可以deploy市面上几乎所有的machine learning model</li>
+<li>不仅可以deploy在both in cloud and on-promise</li>
+<li>expose metrics/HTTP trance等monitoring信息</li>
+</ul>
+<h2 id="Example-Train-ML-model-using-MLflow-Deploy-using-Seldon"><a href="#Example-Train-ML-model-using-MLflow-Deploy-using-Seldon" class="headerlink" title="Example: Train ML model using MLflow, Deploy using Seldon"></a>Example: Train ML model using MLflow, Deploy using Seldon</h2><h3 id="Train-Model-with-MLflow"><a href="#Train-Model-with-MLflow" class="headerlink" title="Train Model with MLflow"></a>Train Model with MLflow</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">import warnings</span><br><span class="line">import sys</span><br><span class="line"></span><br><span class="line">import pandas as pd</span><br><span class="line">import numpy as np</span><br><span class="line">from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score</span><br><span class="line">from sklearn.model_selection import train_test_split</span><br><span class="line">from sklearn.linear_model import ElasticNet</span><br><span class="line"></span><br><span class="line">import mlflow</span><br><span class="line">import mlflow.sklearn</span><br><span class="line"></span><br><span class="line">def eval_metrics(actual, pred):</span><br><span class="line">    rmse = np.sqrt(mean_squared_error(actual, pred))</span><br><span class="line">    mae = mean_absolute_error(actual, pred)</span><br><span class="line">    r2 = r2_score(actual, pred)</span><br><span class="line">    return rmse, mae, r2</span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    warnings.filterwarnings(&quot;ignore&quot;)</span><br><span class="line">    np.random.seed(40)</span><br><span class="line"></span><br><span class="line">    # Read the wine-quality csv file (make sure you&apos;re running this from the root of MLflow!)</span><br><span class="line">    wine_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), &quot;wine-quality.csv&quot;)</span><br><span class="line">    data = pd.read_csv(wine_path)</span><br><span class="line"></span><br><span class="line">    # Split the data into training and test sets. (0.75, 0.25) split.</span><br><span class="line">    train, test = train_test_split(data)</span><br><span class="line"></span><br><span class="line">    # The predicted column is &quot;quality&quot; which is a scalar from [3, 9]</span><br><span class="line">    train_x = train.drop([&quot;quality&quot;], axis=1)</span><br><span class="line">    test_x = test.drop([&quot;quality&quot;], axis=1)</span><br><span class="line">    train_y = train[[&quot;quality&quot;]]</span><br><span class="line">    test_y = test[[&quot;quality&quot;]]</span><br><span class="line"></span><br><span class="line">    alpha = float(sys.argv[1]) if len(sys.argv) &gt; 1 else 0.5</span><br><span class="line">    l1_ratio = float(sys.argv[2]) if len(sys.argv) &gt; 2 else 0.5</span><br><span class="line"></span><br><span class="line">    mlflow.set_experiment(&apos;test&apos;)</span><br><span class="line"></span><br><span class="line">    with mlflow.start_run():</span><br><span class="line">        lr = ElasticNet(alpha=alpha, l1_ratio=l1_ratio, random_state=42)</span><br><span class="line">        lr.fit(train_x, train_y)</span><br><span class="line">        predicted_qualities = lr.predict(test_x)</span><br><span class="line">        (rmse, mae, r2) = eval_metrics(test_y, predicted_qualities)</span><br><span class="line">        print(&quot;Elasticnet model (alpha=%f, l1_ratio=%f):&quot; % (alpha, l1_ratio))</span><br><span class="line">        print(&quot;  RMSE: %s&quot; % rmse)</span><br><span class="line">        print(&quot;  MAE: %s&quot; % mae)</span><br><span class="line">        print(&quot;  R2: %s&quot; % r2)</span><br><span class="line">        mlflow.log_param(&quot;alpha&quot;, alpha)</span><br><span class="line">        mlflow.log_param(&quot;l1_ratio&quot;, l1_ratio)</span><br><span class="line">        mlflow.log_metric(&quot;rmse&quot;, rmse)</span><br><span class="line">        mlflow.log_metric(&quot;r2&quot;, r2)</span><br><span class="line">        mlflow.log_metric(&quot;mae&quot;, mae)</span><br><span class="line">        mlflow.sklearn.log_model(lr, &quot;model&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>在对应的Model Storage下，可以看到<code>MLmodel</code>文件这个文件内包含了很多信息：模型本身<code>model.pkl</code>，模型产生的env <code>conda.yaml</code>… 之后<code>Seldon</code>会读取这部分信息去做deploy</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">artifact_path: model</span><br><span class="line">flavors:</span><br><span class="line">  python_function:</span><br><span class="line">    data: model.pkl</span><br><span class="line">    env: conda.yaml</span><br><span class="line">    loader_module: mlflow.sklearn</span><br><span class="line">    python_version: 3.6.5</span><br><span class="line">  sklearn:</span><br><span class="line">    pickled_model: model.pkl</span><br><span class="line">    serialization_format: cloudpickle</span><br><span class="line">    sklearn_version: 0.21.3</span><br><span class="line">run_id: 26f04f36493b4982a064bb8d6e9d9b30</span><br></pre></td></tr></table></figure>
+
+<h3 id="Deploy-ML-model-with-Seldon"><a href="#Deploy-ML-model-with-Seldon" class="headerlink" title="Deploy ML model with Seldon"></a>Deploy ML model with Seldon</h3><p>Prerequisites:</p>
+<ul>
+<li>a k8s cluster</li>
+<li>helm installed<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">curl https://raw.githubusercontent.com/helm/helm/master/scripts/get &gt; get_helm.sh</span><br><span class="line">chmod 777 get_helm.sh</span><br><span class="line">./get_helm.sh</span><br><span class="line">helm init #install Tiller, a deployment/service/pod of Tiller will be installed automatically in **kube-system** NS</span><br><span class="line">#### create account for Tiller</span><br><span class="line">kubectl create serviceaccount --namespace kube-system tiller</span><br><span class="line">kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller</span><br><span class="line">kubectl patch deploy --namespace kube-system tiller-deploy -p &apos;&#123;&quot;spec&quot;:&#123;&quot;template&quot;:&#123;&quot;spec&quot;:&#123;&quot;serviceAccount&quot;:&quot;tiller&quot;&#125;&#125;&#125;&#125;&apos;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="install-Seldon"><a href="#install-Seldon" class="headerlink" title="install Seldon"></a>install Seldon</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">helm install \</span><br><span class="line">    seldon-core-operator \</span><br><span class="line">    --name seldon-core \</span><br><span class="line">    --repo https://storage.googleapis.com/seldon-charts \</span><br><span class="line">    --namespace seldon-system \</span><br><span class="line">    --set usagemetrics.enabled=true \</span><br><span class="line">    --set ambassador.enabled=true</span><br></pre></td></tr></table></figure>
+
+<h4 id="install-Ambassador-k8s-cloud-native-gateway"><a href="#install-Ambassador-k8s-cloud-native-gateway" class="headerlink" title="install Ambassador (k8s cloud native gateway)"></a>install Ambassador (k8s cloud native gateway)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">helm install stable/ambassador --name ambassador --set crds.keep=false</span><br><span class="line">kubectl rollout status deployment.apps/ambassador</span><br></pre></td></tr></table></figure>
+
+<p>Port forwarding:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#### run below command in another terminal</span><br><span class="line">kubectl port-forward $(kubectl get pods -l app.kubernetes.io/name=ambassador -o jsonpath=&apos;&#123;.items[0].metadata.name&#125;&apos;) 8003:8080</span><br></pre></td></tr></table></figure>
+
+<h4 id="install-Seldon-Analytics"><a href="#install-Seldon-Analytics" class="headerlink" title="install Seldon Analytics"></a>install Seldon Analytics</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># install Seldon Analytics with prometheus and grafana</span><br><span class="line">helm install seldon-core-analytics --name seldon-core-analytics \</span><br><span class="line">     --repo https://storage.googleapis.com/seldon-charts \</span><br><span class="line">     --set grafana_prom_admin_password=password \</span><br><span class="line">     --set persistence.enabled=false</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#### run below command in another terminal</span><br><span class="line">kubectl port-forward \</span><br><span class="line">    $(kubectl get pods \</span><br><span class="line">        -l app=grafana-prom-server -o jsonpath=&apos;&#123;.items[0].metadata.name&#125;&apos;) \</span><br><span class="line">    3000:3000</span><br></pre></td></tr></table></figure>
+
+<h4 id="Deploy-Model"><a href="#Deploy-Model" class="headerlink" title="Deploy Model"></a>Deploy Model</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: machinelearning.seldon.io/v1alpha2</span><br><span class="line">kind: SeldonDeployment</span><br><span class="line">metadata:</span><br><span class="line">  name: test</span><br><span class="line">spec:</span><br><span class="line">  name: rex</span><br><span class="line">  predictors:</span><br><span class="line">  - graph:</span><br><span class="line">      children: []</span><br><span class="line">      implementation: MLFLOW_SERVER</span><br><span class="line">      modelUri: s3://mlflow/xxx/artifacts/model</span><br><span class="line">      envSecretRefName: s3-secret</span><br><span class="line">      name: classifier</span><br><span class="line">    name: default</span><br><span class="line">    replicas: 1</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/machine-learning/" rel="tag"><i class="fa fa-tag"></i> machine learning</a>
+          
+            <a href="/tags/mlflow/" rel="tag"><i class="fa fa-tag"></i> mlflow</a>
+          
+            <a href="/tags/seldon/" rel="tag"><i class="fa fa-tag"></i> seldon</a>
+          
+            <a href="/tags/k8s/" rel="tag"><i class="fa fa-tag"></i> k8s</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2019/11/01/kubernetes-dns/" rel="next" title="Kubernetes DNS, kube-dns, CoreDNS">
+                <i class="fa fa-chevron-left"></i> Kubernetes DNS, kube-dns, CoreDNS
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2019/11/10/K8sDeleteStuckTerminating/" rel="prev" title="Kubernetes Namespace Stuck in status Terminating">
+                Kubernetes Namespace Stuck in status Terminating <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="https://avatars3.githubusercontent.com/u/6408076?s=400&u=e19f07fc81114baf9c38894def833a779a61982a&v=4"
+      alt="Rex">
+  <p class="site-author-name" itemprop="name">Rex</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+  <div class="links-of-blogroll motion-element links-of-blogroll-block">
+    <div class="links-of-blogroll-title">
+      <i class="fa  fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://github.com/RexG/" title="https://github.com/RexG/" rel="noopener" target="_blank">GitHub</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/ilfrost" title="https://blog.csdn.net/ilfrost" rel="noopener" target="_blank">CSDN</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="/rex.guan@outlook.com" title="rex.guan@outlook.com">Email</a>
+        </li>
+      
+    </ul>
+  </div>
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MLflow"><span class="nav-number">1.</span> <span class="nav-text">MLflow</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Seldon"><span class="nav-number">2.</span> <span class="nav-text">Seldon</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example-Train-ML-model-using-MLflow-Deploy-using-Seldon"><span class="nav-number">3.</span> <span class="nav-text">Example: Train ML model using MLflow, Deploy using Seldon</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Train-Model-with-MLflow"><span class="nav-number">3.1.</span> <span class="nav-text">Train Model with MLflow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-ML-model-with-Seldon"><span class="nav-number">3.2.</span> <span class="nav-text">Deploy ML model with Seldon</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#install-Seldon"><span class="nav-number">3.2.1.</span> <span class="nav-text">install Seldon</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#install-Ambassador-k8s-cloud-native-gateway"><span class="nav-number">3.2.2.</span> <span class="nav-text">install Ambassador (k8s cloud native gateway)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#install-Seldon-Analytics"><span class="nav-number">3.2.3.</span> <span class="nav-text">install Seldon Analytics</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Deploy-Model"><span class="nav-number">3.2.4.</span> <span class="nav-text">Deploy Model</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">作者拥有版权,转载请注明出处</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/reading_progress/reading_progress.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+</body>
+</html>
