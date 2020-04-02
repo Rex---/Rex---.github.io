@@ -55,14 +55,18 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
+  <meta name="description" content="title: ‘Elastic search OOM out-of-memory issue, caused by Lucene off-heap memory’date: 2020-04-02 22:02:13tags: [elasticsearch] categories: [‘elasticsearch’]背景介绍首先介绍下项目ES集群环境:5台server组成的ES集群,每台server">
+<meta property="og:type" content="article">
 <meta property="og:title" content="IT Panda Blog">
-<meta property="og:url" content="rexg.github.io/categories/mybatis/index.html">
+<meta property="og:url" content="rexg.github.io/2020/04/02/ES-OOM/index.html">
 <meta property="og:site_name" content="IT Panda Blog">
+<meta property="og:description" content="title: ‘Elastic search OOM out-of-memory issue, caused by Lucene off-heap memory’date: 2020-04-02 22:02:13tags: [elasticsearch] categories: [‘elasticsearch’]背景介绍首先介绍下项目ES集群环境:5台server组成的ES集群,每台server">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-04-02T22:41:31.053Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IT Panda Blog">
-  <link rel="canonical" href="rexg.github.io/categories/mybatis/">
+<meta name="twitter:description" content="title: ‘Elastic search OOM out-of-memory issue, caused by Lucene off-heap memory’date: 2020-04-02 22:02:13tags: [elasticsearch] categories: [‘elasticsearch’]背景介绍首先介绍下项目ES集群环境:5台server组成的ES集群,每台server">
+  <link rel="canonical" href="rexg.github.io/2020/04/02/ES-OOM/">
 
 
 <script id="page-configurations">
@@ -70,13 +74,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>Category: mybatis | IT Panda Blog</title>
+  <title> | IT Panda Blog</title>
   
 
 
@@ -215,77 +219,116 @@
         <div class="content-wrap">
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-          <div id="content" class="content ">
+          <div id="content" class="content page-post-detail">
             
 
-  
-  
-  
-  <div class="post-block category">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h2>mybatis<small>Category</small>
-        </h2>
-      </div>
-        
+  <div id="posts" class="posts-expand">
+    
+    <div class="reading-progress-bar"></div>
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="rexg.github.io/2020/04/02/ES-OOM/">
 
-      <h3 class="post-title">
-          <a class="post-title-link" href="/2019/10/27/Mybatis-Plugin/" itemprop="url">
-            
-              <span itemprop="name">Mybatis Plugin</span>
-            
-          </a>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rex">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/6408076?s=400&u=e19f07fc81114baf9c38894def833a779a61982a&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IT Panda Blog">
+    </span>
+      <header class="post-header">
+
         
-      </h3>
+          <h2 class="post-title" itemprop="name headline">
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-10-27T21:50:28+00:00"
-              content="2019-10-27">
-          10-27
-        </time>
-      </div>
+              
+            
+          </h2>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
 
+              
+                
+              
+
+              <time title="Created: 2020-04-02 22:41:31" itemprop="dateCreated datePublished" datetime="2020-04-02T22:41:31+00:00">2020-04-02</time>
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+        <hr>
+<p>title: ‘Elastic search OOM out-of-memory issue, caused by Lucene off-heap memory’<br>date: 2020-04-02 22:02:13<br>tags: [elasticsearch]</p>
+<h2 id="categories-‘elasticsearch’"><a href="#categories-‘elasticsearch’" class="headerlink" title="categories: [‘elasticsearch’]"></a>categories: [‘elasticsearch’]</h2><h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><p>首先介绍下项目ES集群环境:5台server组成的ES集群,每台server物理内存64G还有几个G的SWAP,其中给ES分配40G的堆内存;除ES之外,server上还跑着一些其他service.</p>
+<p>项目内使用ES,主要存储fluentD泵过来的k8s集群内所有app的系统log,之外还维护GEO app的业务数据.</p>
+<h2 id="事件还原"><a href="#事件还原" class="headerlink" title="事件还原"></a>事件还原</h2><p>期初ES只是偶尔单个节点报OOM,并没有引起足够的重视,特别是GEO team 重启ES节点即可解决问题.</p>
+<p>但随着GEO业务数据量的增大,OOM越来越频繁,整个ES集群crash掉,才开始引起重视.</p>
+<h2 id="尝试解决"><a href="#尝试解决" class="headerlink" title="尝试解决"></a>尝试解决</h2><p>遇到OOM,第一时间想到去看ES JDK的配置,看到虽然有dump但是由于dump文件太大,无法在线分析,也无法download或者scp到其他机器上,影响了定位问题最直接的方式.</p>
+<p>遂查看linux server /log, 每次在service OOM的时候,都会记录最后的JDK堆栈使用情况,已经process被谁已经何时被kill的log.</p>
+<p>发现ES堆+SWAP竟然还有剩余,但有意思的是server本身内存不足,并触发保护机制主动kill掉最占用内存的process,即kill es.</p>
+<h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><p>是什么挤压到了server的内存使用呢? 在确定了server上其他几个service的内存使用情况后,排除了其他service的嫌疑.</p>
+<p>同时定位到OOM发生的trigger是GEO业务数据的大query.</p>
+<p>也就是说,ES有大query的时候,会挤压到系统内存,而非JDK堆内存..</p>
+<p>莫非ES的query会使用堆外内存?</p>
+<p>在查看了ES的文档验证了这个想法. <a href="https://www.elastic.co/guide/en/elasticsearch/guide/2.x/heap-sizing.html#_give_less_than_half_your_memory_to_lucene" target="_blank" rel="noopener">give (less than) half your memory to Lucene</a> 原来是Lucene! ES使用Lucene做检索,而Lucene竟然使用的是<strong>堆外内存</strong>,这点确实没考虑到..</p>
+<h2 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h2><p>在确定OOM是由Lucene使用<strong>堆外内存</strong>引起的之后,将ES分配的内存从40G降到32G,留给Lucene更充足的内存,同时优化GEO query,问题得到解决.</p>
+
     </div>
 
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2019/12/15/JavaDCL/" rel="next" title="Java单例模式double check locking在JDK1.5之前的问题">
+                <i class="fa fa-chevron-left"></i> Java单例模式double check locking在JDK1.5之前的问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+          </div>
+        </div>
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
-
+  </div>
 
 
           </div>
           
+
 
         </div>
           
@@ -300,8 +343,17 @@
 
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -497,6 +549,23 @@
 
         </div>
       </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#categories-‘elasticsearch’"><span class="nav-number">1.</span> <span class="nav-text">categories: [‘elasticsearch’]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#背景介绍"><span class="nav-number">2.</span> <span class="nav-text">背景介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件还原"><span class="nav-number">3.</span> <span class="nav-text">事件还原</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#尝试解决"><span class="nav-number">4.</span> <span class="nav-text">尝试解决</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题分析"><span class="nav-number">5.</span> <span class="nav-text">问题分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题解决"><span class="nav-number">6.</span> <span class="nav-text">问题解决</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
     </div>
   </aside>
@@ -603,5 +672,9 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
 </body>
 </html>
