@@ -242,7 +242,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2020/04/02/ES-OOM/" class="post-title-link" itemprop="url">Untitled</a>
+                <a href="/2020/04/02/ES-OOM/" class="post-title-link" itemprop="url">Elastic search OOM out-of-memory issue, caused by Lucene off-heap memory</a>
               
             
           </h2>
@@ -261,7 +261,26 @@
                 
               
 
-              <time title="Created: 2020-04-02 22:41:31" itemprop="dateCreated datePublished" datetime="2020-04-02T22:41:31+00:00">2020-04-02</time>
+              <time title="Created: 2020-04-02 22:02:13 / Modified: 22:44:51" itemprop="dateCreated datePublished" datetime="2020-04-02T22:02:13+00:00">2020-04-02</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/elasticsearch/" itemprop="url" rel="index"><span itemprop="name">elasticsearch</span></a></span>
+
+                
+                
+              
             </span>
           
 
@@ -278,9 +297,8 @@
       
           
             <p>
-              
-title: ‘Elastic search OOM out-of-memory issue, caused by Lucene off-heap memory’date: 2020-04-02 22:02:13tags: [elasticsearch]
-categories: [‘elastic
+              背景介绍首先介绍下项目ES集群环境:5台server组成的ES集群,每台server物理内存64G还有几个G的SWAP,其中给ES分配40G的堆内存;除ES之外,server上还跑着一些其他service.
+项目内使用ES,主要存储fluentD泵过来的k8s集群内所有app的系统log,之外还维护
               ...
             </p>
           <!--noindex-->
